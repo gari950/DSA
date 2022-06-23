@@ -1,36 +1,60 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin() , nums.end()); 
+    vector<vector<int>> twoSum(vector<int>& nums, int si , int ei, int target) {
+        
+        int l= si;
         vector<vector<int>> ans;
-        unordered_map<int,int> map;
-        
-         if(nums.size() < 3){              
-            return {};
-        }
-        if(nums[0] > 0){                    
-            return {};
-        } 
-        for(int i=0 ; i<nums.size() ; i++)
-            map[nums[i]]=i;
-        
-        for(int i=0 ; i<nums.size()-2 ; i++)
+        int r = ei;
+        while(l<r)
         {
-            for(int j=i+1 ; j<nums.size()-1 ; j++)
+             if(l!=si && nums[l]==nums[l-1])
             {
-                
-                int required = -1*(nums[i]+nums[j]);
-                    if(map.count(required) && map.find(required)->second > j)
-                    {
-                        ans.push_back({nums[i],nums[j],required});
-                    
-                    }
-                 j = map.find(nums[j])->second;
+                l++;
+                continue;
             }
-             
-            i = map.find(nums[i])->second;  
+            
+            int sum =nums[l] + nums[r];
+            
+             if(sum == target)
+            {
+                vector<int> subres;
+                subres.push_back(nums[l]);
+                subres.push_back(nums[r]);
+                ans.push_back(subres);
+                l++;
+                r--;
+                
+            }
+            else if(sum > target)
+            {
+                r--;
+            }
+            else
+                l++;
         }
-       
         return ans;
+    }
+    
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        //int targ = 0; 
+        if (nums.size() < 3)
+            return {};
+       
+        sort(nums.begin(), nums.end());
+        for(int i=0;i<=nums.size()-2;i++)
+        {
+            if(i!=0 && nums[i]==nums[i-1]) continue;
+            
+            int target = 0 - nums[i];
+            vector<vector<int>> subres = twoSum(nums , i + 1 , nums.size()-1, target);
+
+        for(vector<int> list : subres)
+        {
+            list.push_back(nums[i]);
+            res.push_back(list);
+        }
+        }
+        return res;
     }
 };
