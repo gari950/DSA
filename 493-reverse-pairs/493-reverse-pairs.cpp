@@ -24,14 +24,14 @@ public:
         {
             if(nums[i] > 2*1ll*nums[j])
             {
-                c+=(mid-i+1);
+                c+=(mid+1-i);
                 j++;
             }
             else
                 i++;
         }
         
-        sort(nums.begin()+left,nums.begin()+right+1);
+        sort(nums.begin()+left,nums.begin()+right+1);//quick sort nlogn
         
     }
 };
