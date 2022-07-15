@@ -10,19 +10,19 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         ListNode*temp;
+        unordered_map<ListNode*,int> count;
       while(headA != NULL)  
       {
-          temp = headB;
-          while(temp != NULL)
-          {
-              if(headA == temp)
-                  return headA;
-              
-              temp = temp->next;
-          }
-          
+          count[headA]++;
           headA = headA->next;
       }
+       while(headB != NULL)  
+       {
+           if(count[headB]>0)
+               return headB;
+           
+           headB = headB->next;
+       }
         return NULL;
     }
 };
