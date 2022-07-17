@@ -1,33 +1,51 @@
+​
+​
+/*
+// Definition for a Node.
+class Node {
+public:
+int val;
+Node* next;
+Node* random;
+Node(int _val) {
+val = _val;
+next = NULL;
+random = NULL;
+}
+};
+*/
+​
+//O(1)
 class Solution {
 public:
 Node* copyRandomList(Node* head) {
-Node * head_cp = nullptr, * cur = head, * cur_cp = nullptr;
-if (head == nullptr)
-return nullptr;
-while (cur != nullptr)
+Node *p = head,*q = head;
+while(p)
 {
-cur_cp = new Node(cur->val, cur->next, nullptr);
-cur->next = cur_cp;
-cur = cur_cp->next;
+q = p->next;
+Node *newnode = new Node(p->val);
+newnode->next = q;
+p->next = newnode;
+p = q;
 }
-cur = head;
-while (cur != nullptr)
+p = head;
+while(p)
 {
-cur_cp = cur->next;
-if (cur->random)
-cur_cp->random = cur->random->next;
-cur = cur_cp ->next;
+if(p->random)
+p->next->random = p->random->next;
+p = p->next->next;
 }
-cur = head;
-head_cp = head->next;
-while (cur != nullptr)
+Node *head1 = new Node(0);
+Node *tail1 = head1;
+p = head;
+while(p)
 {
-cur_cp = cur->next;
-cur->next = cur_cp->next;
-cur = cur->next;
-if (cur)
-cur_cp->next = cur->next;
+q = p->next->next;
+tail1->next = p->next;
+p->next = q;
+tail1 = tail1->next;
+p = q;
 }
-return head_cp;
+return head1->next;
 }
-};
+}
