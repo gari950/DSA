@@ -37,16 +37,17 @@ public:
             cur = cur->next->next;
         }
         
-        cur = head;
-        Node *copy = nullptr, *head_cp = head->next;
-        while (cur != nullptr)
+       Node *head_cp = new Node(0);
+       Node * temp = head_cp, *ptr;
+       cur = head; 
+        while(cur)
         {
-            copy = cur->next;
-            cur->next = copy->next;
-            cur = cur->next;
-            if (cur)
-                copy->next = cur->next;
+            ptr = cur->next->next;
+            temp->next = cur->next;
+            cur->next = ptr;
+            temp = temp->next;
+            cur = ptr;
         }
-        return head_cp;
+        return head_cp->next;
     }
 };
