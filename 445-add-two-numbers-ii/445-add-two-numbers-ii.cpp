@@ -1,15 +1,6 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
+    
     ListNode* reverseList(ListNode* head) {
         
         ListNode* p = head;
@@ -24,42 +15,36 @@ public:
         return q;
     }
     
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    ListNode* addTwoNumbers(ListNode* c1, ListNode* c2) {
+        return add(reverseList(c1), reverseList(c2));
+    }
+    
+        ListNode* add(ListNode* l1, ListNode* l2) {
+            
         ListNode* dummy = new ListNode(0);
         ListNode* temp = dummy;
         int carry = 0;
-        stack<int> s1;
-        stack<int> s2;
-      
-            while(l1 != NULL)
-            {
-                s1.push(l1->val);
-                l1 = l1->next;
-            }
-            while(l2 != NULL)
-            {
-                s2.push(l2->val);
-                l2 = l2->next;
-            }
         
-        while(!s1.empty() || !s2.empty() || carry==1)
+        while(l1 != NULL || l2 != NULL || carry != 0)
         {
             int sum = 0;
-            if(!s1.empty())
+            if(l1)
             {
-                sum += s1.top();  
-                s1.pop();
+                sum += l1->val;
+                l1 = l1->next;
             }
-             if(!s2.empty())
+            
+            if(l2)
             {
-                sum += s2.top();  
-                 s2.pop();
+                sum += l2->val;
+                l2 = l2->next;
             }
+            
             sum += carry;
             carry = sum/10;
             ListNode* ptr = new ListNode(sum%10);
             temp->next = ptr;
-            temp = temp->next;  
+            temp = temp->next;
         }
         return reverseList(dummy->next);
     }
