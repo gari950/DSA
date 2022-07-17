@@ -30,3 +30,10 @@ ListNode* dummy = new ListNode(0);
 ListNode* temp = dummy;
 int carry = 0;
 while(l1 != NULL || l2 != NULL || carry != 0)
+{
+int sum = 0;
+if(l1)
+{
+sum += l1->val;
+l1 = l1->next;
+}
