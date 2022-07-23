@@ -1,36 +1,3 @@
-/*
-// Definition for a Node.
-class Node {
-public int val;
-public Node prev;
-public Node next;
-public Node child;
-};
-*/
-​
-class Solution {
-public Node mergelist(Node a, Node b){
-Node temp = new Node(0);
-Node res = temp;
-while(a!=null && b!=null){
-if(a.val < b.val){
-temp.next = a;
-a = a.child;
-temp = temp.next;
-}
-else
-{
-temp.next=b;
-b=b.child;
-temp=temp.next;
-}
-}
-if(a!=null)temp.next=a;
-else
-temp.next=b;
-return res.next;
-​
-}
 public Node flatten(Node root) {
 if(root==null || root.next==null)
 return root;
@@ -39,3 +6,24 @@ root = mergelist(root,root.next);
 return root;
 }
 }
+​
+```
+Node* flatten(Node* head) {
+Node *ptr = head, *tmp_next, *runner;
+while (ptr) {
+if (ptr->child) {
+// Save the current next and connect the child to next
+tmp_next = ptr->next;
+ptr->next = ptr->child;
+ptr->next->prev = ptr;
+ptr->child = NULL;
+// Run till the end of the current list and connect last node to saved next
+runner = ptr->next;
+while (runner->next) runner = runner->next;
+runner->next = tmp_next;
+if (runner->next) runner->next->prev = runner;
+}
+ptr = ptr->next;
+}
+return head;
+```
