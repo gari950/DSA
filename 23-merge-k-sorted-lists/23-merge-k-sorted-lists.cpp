@@ -11,30 +11,21 @@
 class Solution {
 public:
     ListNode* merge(ListNode* l, ListNode*r){
-        ListNode *dummy = new ListNode(0);
-        ListNode *ptr =dummy;
-        while(l && r){
-            if(l->val <= r->val){
-                ptr->next=l;
-                ptr=ptr->next;
-                l=l->next;
-            }
-            else{
-                 ptr->next=r;
-                ptr=ptr->next;
-                r=r->next;
-            }
-            
-        }
-        if(l){
-                ptr->next=l;
-                l=l->next;
-            }
-            if(r){
-                ptr->next=r;
-                r=r->next;
-            }
-        return dummy->next;
+        
+    if(l == nullptr){
+        return r;
+    }
+    if(r == nullptr){
+        return l;
+    }
+    if(l->val <= r->val){
+        l->next = merge(l->next, r);
+        return l;
+    }
+    else{
+        r->next = merge(l, r->next);
+        return r;
+    }
     }
     
     ListNode* mergeKLists(vector<ListNode*>& lists) {
