@@ -29,16 +29,15 @@ public:
     }
     
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-       if(lists.empty()){
-        return NULL;
+           if(lists.empty()){
+        return nullptr;
     }
-        int n = lists.size();
-    while(n > 1){
-        for(int i=0;i<n/2;i++)
-            lists[i] = merge(lists[i],lists[n-1-i]);
-        n = (n+1)/2;
+    while(lists.size() > 1){
+        lists.push_back(merge(lists[0], lists[1]));
+        lists.erase(lists.begin());
+        lists.erase(lists.begin());
     }
-    return lists.front();      
+    return lists.front();
         
     }
 };
