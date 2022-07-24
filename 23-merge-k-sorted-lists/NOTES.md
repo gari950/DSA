@@ -10,6 +10,7 @@ lists.erase(lists.begin());
 return lists.front();
 ```
 ​
+#########
 ```
 if(l1 == nullptr){
 return l2;
@@ -25,4 +26,17 @@ else{
 l2->next = mergeTwoLists(l1, l2->next);
 return l2;
 }
+```
+##############
+```
+if(lists.empty()){
+return NULL;
+}
+int n = lists.size();
+while(n > 1){
+for(int i=0;i<n/2;i++)
+lists[i] = merge(lists[i],lists[n-1-i]);
+n = (n+1)/2;
+}
+return lists.front();
 ```
