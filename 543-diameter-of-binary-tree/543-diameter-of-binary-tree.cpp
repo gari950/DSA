@@ -11,16 +11,16 @@
  */
 class Solution {
 public:
+    int d = 0;
     int diameterOfBinaryTree(TreeNode* root) {
-        int d = 0;
-        edge_count(root,d);
+        edge_count(root);
         return d;
     }
     
-    int edge_count(TreeNode* root, int& d){
+    int edge_count(TreeNode* root){
         if(root == NULL) return 0;
-        int left = edge_count(root->left,d);
-        int right = edge_count(root->right,d);
+        int left = edge_count(root->left);
+        int right = edge_count(root->right);
         d = max(d,(left+right));
         return max(left,right)+1;
     }
