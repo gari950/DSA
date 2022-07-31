@@ -12,6 +12,7 @@
 class Solution {
 public:
     bool isSubtree(TreeNode* root, TreeNode* subroot) {
+        if(!subroot)return true;
 
         if(!root)return false;
         
@@ -22,14 +23,12 @@ public:
     
     bool sameTree(TreeNode* root, TreeNode* subroot){
         if (root == NULL && subroot == NULL)return true;
-        
-        if(!root  || !subroot)
-            return false;
-        
-        if (root->val != subroot->val){
-            return false;
+              
+        if (root && subroot && root->val == subroot->val){
+                       return ((sameTree(root->left,subroot->left)) && (sameTree(root->right,subroot->right)));         
+            
         }
         
-           return ((sameTree(root->left,subroot->left)) && (sameTree(root->right,subroot->right)));         
+return false;
     }
 };
