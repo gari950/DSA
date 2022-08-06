@@ -14,21 +14,21 @@ public:
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> res;
         if(!root)return res;
-        helper(res,root,to_string(root->val));
+        binaryTreePaths(res,root,to_string(root->val));
         return res;
     }
     
-    void helper(vector<string>& res, TreeNode* root, string t){
+    void binaryTreePaths(vector<string>& res, TreeNode* root, string t){
         if(!root->left && !root->right){
             res.push_back(t);
             return;
         }
         
         if(root->left){
-           helper(res, root->left, t + "->" + to_string(root->left->val)) ;
+           binaryTreePaths(res, root->left, t + "->" + to_string(root->left->val)) ;
         }
         if(root->right){
-          helper(res, root->right, t + "->" + to_string(root->right->val)) ;  
+          binaryTreePaths(res, root->right, t + "->" + to_string(root->right->val)) ;  
         }
     }
 };
