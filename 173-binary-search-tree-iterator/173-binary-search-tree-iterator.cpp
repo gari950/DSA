@@ -19,7 +19,7 @@ public:
     
     int next() {
         TreeNode* top = st.top();
-        cout<<"top = "<<top->val<<endl;
+        //cout<<"top = "<<top->val<<endl;
         st.pop();
         if (top->right != NULL)
             Lefttree(top->right);  
@@ -36,7 +36,7 @@ public:
         while (p)
         {
             st.push(p);
-            cout<<"p = "<<p->val<<endl;
+            //cout<<"p = "<<p->val<<endl;
             p = p->left;
         }
     }
