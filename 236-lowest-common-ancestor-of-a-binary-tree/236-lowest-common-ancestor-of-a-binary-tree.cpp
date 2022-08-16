@@ -9,20 +9,18 @@
  */
 class Solution {
 public:
-    TreeNode *ans;
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        recurseTree(root,p,q);
-        return ans;
-    }
-    bool recurseTree(TreeNode* curroot, TreeNode* p, TreeNode* q){
-        if(curroot==NULL)
-            return false;
-        int left = recurseTree(curroot->left,p,q) ? 1 : 0;
-        int right = recurseTree(curroot->right,p,q)? 1 : 0;
-        int mid = (curroot == p || curroot == q) ? 1 : 0;
+        if(root==NULL || root == p || root == q)
+            return root;
+        TreeNode *left = lowestCommonAncestor(root->left,p,q);
+        TreeNode *right = lowestCommonAncestor(root->right,p,q);
         
-        if(mid + left + right >= 2)
-            ans = curroot;
-        return (mid + right + left > 0);
+        if(!left)
+            return right;
+        else if(!right)
+            return left;
+        else
+            return root;
+            
     }
 };
