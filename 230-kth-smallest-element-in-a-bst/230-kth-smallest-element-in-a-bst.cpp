@@ -11,27 +11,24 @@
  */
 class Solution {
 public:
-   void kth(TreeNode* root, int k,int &curr,int &ans) {
-        if(root==NULL)
-            return;
-        if(root->left)
-        kth(root->left,k,curr,ans);
-        curr++;
-        
-        if(k==curr)
-            {ans=root->val;
-            return;} 
-        if(root->right);
-        {
-            kth(root->right,k,curr,ans);
-        }
-    }
-    
-    //just do inorder and find kth nodes value
+    int ans=0;int c=0;
     int kthSmallest(TreeNode* root, int k) {
-        int cur=0;
-        int ans = -1;
-        kth(root,k,cur,ans);
+        inorder(root,ans,k);
         return ans;
+    }
+    void inorder(TreeNode* root, int& ans, int k){
+        
+        if(!root)return;
+        if(root->left)
+            inorder(root->left,ans,k);
+            c++;
+        
+        if(c==k){
+            ans = root->val;
+            return;
+        }
+        if(root->right){
+            inorder(root->right,ans,k);
+        }
     }
 };
