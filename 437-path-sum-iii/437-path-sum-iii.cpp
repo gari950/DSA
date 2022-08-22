@@ -11,26 +11,29 @@
  */
 class Solution {
 public:
-     void pathSumHelper(TreeNode* root, int targetSum, long long currSum, int& count){
-        if (root == NULL){
-            return;
-        }
-        if (targetSum == currSum + root->val){
-            count++;
-        }
-        pathSumHelper(root->left, targetSum, currSum+root->val, count);
-        pathSumHelper(root->right, targetSum, currSum+ root->val, count);
+    int c=0;
+    vector<int> res;
+    
+    int pathSum(TreeNode* root, int t) {
+        getsum(root,t);
+        return c;
     }
-public:
-    int pathSum(TreeNode* root, int targetSum) {
-        if (root == NULL){
-            return 0;
-        }
-        int currPaths = 0;
-        pathSumHelper(root, targetSum, 0, currPaths);
-        int leftPaths = pathSum(root->left, targetSum);
-        int rightPaths =  pathSum(root->right, targetSum);
-        return currPaths + leftPaths + rightPaths;
+    
+    void getsum(TreeNode* root, int t){
+        if(!root)
+            return;
+        res.push_back(root->val);
         
+        getsum(root->left,t);
+        getsum(root->right,t);
+        
+        long long int temp=0;
+        for(int i=res.size()-1;i>=0;i--){
+            temp+=res[i];
+            
+            if(temp == t)
+                c++;
+        }
+        res.pop_back();
     }
 };
